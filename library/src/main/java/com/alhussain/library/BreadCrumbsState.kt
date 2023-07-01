@@ -13,7 +13,6 @@ import androidx.compose.runtime.toMutableStateList
 @Stable
 class BreadCrumbsState(
     data: List<BreadCrumbs>, currentIndex: Int,
-    private val onClicked: (BreadCrumbs) -> Unit
 ) {
 
 
@@ -36,14 +35,10 @@ class BreadCrumbsState(
             data.removeLast()
         }
     }
-
-    fun performClick(breadCrumbs: BreadCrumbs) = onClicked.invoke(breadCrumbs)
     fun addNewItem(breadCrumbs: BreadCrumbs) {
         data.add(breadCrumbs)
         lastIndex = data.lastIndex
         currentIndex = lastIndex
-
-
     }
 }
 
@@ -52,7 +47,6 @@ class BreadCrumbsState(
 fun rememberBreadCrumbsState(
     data: List<BreadCrumbs>,
     currentIndex: Int = 0,
-    onClicked: (BreadCrumbs) -> Unit
 ): BreadCrumbsState = remember(key1 = data) {
-    BreadCrumbsState(data = data, currentIndex, onClicked)
+    BreadCrumbsState(data = data, currentIndex)
 }

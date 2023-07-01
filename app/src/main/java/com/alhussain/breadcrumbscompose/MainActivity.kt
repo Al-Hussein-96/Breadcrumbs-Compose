@@ -4,21 +4,26 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberTimePickerState
-import androidx.compose.material3.rememberTopAppBarState
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.alhussain.breadcrumbscompose.ui.theme.BreadcrumbsComposeTheme
 import com.alhussain.library.BreadCrumbs
+import com.alhussain.library.BreadCrumbsDefaults
 import com.alhussain.library.UnlimitedBreadCrumbs
 import com.alhussain.library.rememberBreadCrumbsState
 import kotlin.random.Random
@@ -38,6 +43,7 @@ val data = listOf(
 
 class MainActivity : ComponentActivity() {
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -46,29 +52,39 @@ class MainActivity : ComponentActivity() {
 
                 val context = LocalContext.current
 
-
                 val breadCrumbsState = rememberBreadCrumbsState(
-                    data = data,
-                    onClicked = {
-                        Toast.makeText(
-                            context,
-                            "Clicked on Bread with ${it.name}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    data = data
                 )
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column {
-                        UnlimitedBreadCrumbs(breadCrumbsState)
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        UnlimitedBreadCrumbs(
+                            breadCrumbsState,
+                            icon = Icons.Default.PlayArrow,
+                            maxItemToShow = 5,
+                            modifier = Modifier.background(
+                                Color.DarkGray
+                            ),
+                            colors = BreadCrumbsDefaults.breadCrumbsColors(
+                                backgroundColor = Color.DarkGray,
+                                iconColor = Color.White,
+                                textColor = Color.White
+                            )
+                        ) {
+                            Toast.makeText(
+                                context,
+                                "Clicked on Bread with ${it.name}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                         Button(onClick = {
                             breadCrumbsState.addNewItem(
                                 BreadCrumbs(
                                     "tasdasd",
-                                    Random.nextInt(10,123123)
+                                    Random.nextInt(10, 123123)
                                 )
                             )
                         }) {
