@@ -42,19 +42,16 @@ fun UnlimitedBreadCrumbs(
     icon: ImageVector = Icons.Default.ArrowForward,
     colors: BreadCrumbsColors = BreadCrumbsDefaults.breadCrumbsColors(),
     maxItemToShow: Int = Int.MAX_VALUE,
-    onBreadClicked: (BreadCrumbs) -> Unit
 ) {
     val scrollState = rememberLazyListState()
 
     Box(
         modifier = Modifier
             .defaultModifier()
-            .then(modifier)
-            .background(color = colors.backgroundColor),
+            .then(modifier),
         contentAlignment = Alignment.TopStart
     ) {
         LazyRow(state = scrollState) {
-
 
             itemsIndexed(items = state.data.takeLast(maxItemToShow), key = { _, item ->
                 item.index
@@ -73,7 +70,7 @@ fun UnlimitedBreadCrumbs(
                 Text(
                     modifier = Modifier
                         .padding(4.dp)
-                        .clickable(onClick = { onBreadClicked.invoke(it) }), text = it.name, color = colors.textColor
+                        .clickable(onClick = { state.performClick(it) }), text = it.name, color = colors.textColor
                 )
 
 

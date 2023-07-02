@@ -1,10 +1,8 @@
 package com.alhussain.library
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -12,7 +10,7 @@ import androidx.compose.runtime.toMutableStateList
 
 @Stable
 class BreadCrumbsState(
-    data: List<BreadCrumbs>, currentIndex: Int,
+    data: List<BreadCrumbs>, currentIndex: Int, private val onBreadClicked: (BreadCrumbs) -> Unit
 ) {
 
 
@@ -35,6 +33,26 @@ class BreadCrumbsState(
             data.removeLast()
         }
     }
+
+    fun performClick(breadCrumbs: BreadCrumbs){
+        removeAllToTheRight(breadCrumbs)
+        onBreadClicked.invoke(breadCrumbs)
+    }
+
+    fun backToHome(){
+        val home = data.first()
+        removeAllToTheRight(home)
+    }
+
+    private fun removeAllToTheRight(breadCrumbs: BreadCrumbs) {
+        val index = data.indexOf(breadCrumbs)
+
+        val startIndexToRemove = maxOf(index,1)
+
+        data.removeRange(startIndexToRemove,size)
+    }
+
+
     fun addNewItem(breadCrumbs: BreadCrumbs) {
         data.add(breadCrumbs)
         lastIndex = data.lastIndex
@@ -47,6 +65,7 @@ class BreadCrumbsState(
 fun rememberBreadCrumbsState(
     data: List<BreadCrumbs>,
     currentIndex: Int = 0,
+    onBreadClicked: (BreadCrumbs) -> Unit = {},
 ): BreadCrumbsState = remember(key1 = data) {
-    BreadCrumbsState(data = data, currentIndex)
+    BreadCrumbsState(data = data, currentIndex, onBreadClicked = onBreadClicked)
 }
