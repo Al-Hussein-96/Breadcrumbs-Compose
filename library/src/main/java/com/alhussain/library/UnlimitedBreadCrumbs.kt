@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
+@Stable
 private fun Modifier.defaultModifier(): Modifier {
     return composed {
         this
@@ -37,7 +38,7 @@ private fun Modifier.defaultModifier(): Modifier {
 
 @Composable
 fun UnlimitedBreadCrumbs(
-    state: BreadCrumbsState,
+    state: BreadCrumbsState = rememberBreadCrumbsState(data = emptyList()),
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier.defaultModifier(),
     icon: ImageVector = Icons.Default.ArrowForward,
     colors: BreadCrumbsColors = BreadCrumbsDefaults.breadCrumbsColors(),
@@ -48,7 +49,8 @@ fun UnlimitedBreadCrumbs(
     Box(
         modifier = Modifier
             .defaultModifier()
-            .then(modifier),
+            .then(modifier)
+            .background(color = colors.backgroundColor),
         contentAlignment = Alignment.TopStart
     ) {
         LazyRow(state = scrollState) {

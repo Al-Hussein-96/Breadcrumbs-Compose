@@ -14,12 +14,14 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberStandardBottomSheetState
+import androidx.compose.material3.rememberTopAppBarState
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -55,8 +57,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             BreadcrumbsComposeTheme {
                 // A surface container using the 'background' color from the theme
-
-                val context = LocalContext.current
 
                 val breadCrumbsState = rememberBreadCrumbsState(
                     data = data

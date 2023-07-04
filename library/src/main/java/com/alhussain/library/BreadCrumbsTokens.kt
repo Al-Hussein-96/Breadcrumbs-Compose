@@ -7,5 +7,4 @@ internal object BreadCrumbsTokens {
     val BackgroundColor = Color.Transparent
     val IconColor = Color.Black
     val TextColor = Color.Black
-
 }
