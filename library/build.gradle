@@ -1,14 +1,19 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+
 }
 
 ext {
     // Provide your own coordinates here
     PUBLISH_GROUP_ID = 'io.github.Al-Hussein-96'
     PUBLISH_VERSION = '1.0'
-    PUBLISH_ARTIFACT_ID = 'UnlimitedBreadCrumbsCompose'
+    PUBLISH_ARTIFACT_ID = 'Breadcrumbs-Compose'
 }
+
+apply from: "${rootProject.projectDir}/library/publish-module.gradle"
+
 
 android {
     namespace 'com.alhussain.library'
@@ -42,6 +47,10 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.3.2'
+    }
+
+    testFixtures {
+        enable = true
     }
 }
 

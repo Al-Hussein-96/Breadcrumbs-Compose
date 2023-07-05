@@ -10,6 +10,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            name = "sonatype"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = System.getenv('ossrhUsername')
+                password = System.getenv('ossrhPassword')
+            }
+        }
     }
 }
 rootProject.name = "Breadcrumbs compose"
