@@ -5,6 +5,7 @@ ext["sonatypeStagingProfileId"] = ''
 ext["signing.keyId"] = ''
 ext["signing.password"] = ''
 ext["signing.key"] = ''
+ext["signing.secretKeyRingFile"] = ''
 
 project.logger.info("HelloWorld")
 
